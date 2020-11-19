@@ -14,12 +14,12 @@ See user's followers. If you've scrolled to the end, swipe one more time to uplo
 <img src="/Screenshots/02_FollowersScreen.png" width="33%"> <img src="/Screenshots/03_FollowersScreenLoading.png" width="33%">
 
 ## 3. User Info Screen
-See info of typed user by tapping the "User Info" button or his followers by tapping the follower. Tap the "GitHub Profile" button to open profile URL by Safari Viewer or tap the "Get followers" button to see selected follower's followers. Tap the plus button to add user to your favorites.
+See info about current user by tapping the "User Info" button or his followers by tapping the follower's cell. Tap the "GitHub Profile" button to open profile URL by Safari Viewer or tap the "Get followers" button to see selected follower's followers. Tap the plus button to add user to your favorites.
 <br><br>
 <img src="/Screenshots/04_UserInfoScreen.png" width="33%"> <img src="/Screenshots/05_SafariScreen.png" width="33%">
 
 ## 4. Favorites Screen
-See your favorite users. Tap the user to see his followers. Swipe left to delete user from favorites.
+See your favorite users. Tap the user's cell to see his followers. Swipe left to delete user from favorites.
 <br><br>
 <img src="/Screenshots/06_FavoritesScreen.png" width="33%">
 
@@ -46,7 +46,7 @@ There is some tech details you should know about this app:
 4. Adaptive UI for all iPhone screen sizes;
 5. Dynamic Type support on User Info screen;
 6. Data retrieval using GitHub API;
-7. Diffable DataSource for Followers collectionview;
+7. Diffable Data Source for Followers collectionview;
 8. Storing favorites by Userdefaults;
 9. App constants are separately stored in 'Constants.swift' file;
 10. Unit&UI Testing;
