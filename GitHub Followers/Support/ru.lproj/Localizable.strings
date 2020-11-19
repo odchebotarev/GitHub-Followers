@@ -1,0 +1,53 @@
+// -> RU
+
+// Buttons
+"Get followers" = "Загрузить подписчиков";
+"User Info" = "Инфо";
+"GitHub Profile" = "Профиль GitHub";
+"Hooray!" = "Ура!";
+"Ok" = "Хорошо";
+
+// Placeholders
+"Enter a username" = "Введите пользователя";
+"Search for a username" = "Поиск пользователя";
+
+// Alerts
+"Something went wrong" = "Что-то пошло не так";
+
+"Empty username" = "Пустое имя пользователя";
+"Please enter a username. We need to know who to look for!" = "Введите имя пользователя. Нам нужно знать, кого искать!";
+
+"Success!" = "Успех!";
+"Unable to remove" = "Не получилось удалить";
+
+"Invalid URL" = "Некорректная ссылка";
+"The URL attached to this user is invalid" = "Ссылка, относящаяся к этому пользователю, недействительна.";
+
+"No followers" = "Нет подписчиков";
+"This user has no followers. What a shame!" = "У этого пользователя нет подписчиков. Как жаль!";
+
+"You have successfully favorited this user." = "Вы добавили пользователя в избранное.";
+
+// User Info Elements
+"Public Repos" = "Публичных репозиториев";
+"Public Gists" = "Публичных гистов";
+"Followers" = "Подписчиков";
+"Following" = "Подписок";
+
+// Error Messages
+"This username created an invalid request. Please try again." = "Некорректный запрос на пользователя. Повторите попытку позже.";
+"Unable to complete your request. Please check your internet connection." = "Невозможно выполнить запрос. Проверьте подключение к интернету.";
+"Invalid response from the server. Please try again." = "Некорректный ответ от сервера. Повторите попытку позже.";
+"The data received from the server was invalid. Please try again." = "Данные, полученные от сервера, некорректны. Повторите попытку позже.";
+"There was an error favoriting this user. Please try again." = "Произошла ошибка при добавлении пользователя в Избранное. Повторите попытку позже.";
+"You've already favorited this user. You must REALLY like them!" = "Вы уже добавили этого пользователя в Избранное. Должно быть, он вам ОЧЕНЬ нравится!";
+
+// Other
+"This user doesn't have any followers. Go follow them!" = "У этого пользователя еще нет подписчиков. Будьте первыми!";
+"No favorites!\nAdd one on the search tab." = "Тут пусто!\nДобавьте кого-нибудь на вкладке поиска.";
+"Oops! That's not what was planned to be." = "Упс! Что-то пошло не по плану.";
+"No Location" = "Место не указано";
+"No bio available" = "Биография не указана";
+"Favorites" = "Избранное";
+"GitHub since" = "Пользователь GitHub с";
+

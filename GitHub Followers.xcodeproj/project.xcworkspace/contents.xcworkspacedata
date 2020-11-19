@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:../Screenshots"
+      name = "Screenshots">
+      <FileRef
+         location = "group:14_AlertMessage_ru.png">
+      </FileRef>
+      <FileRef
+         location = "group:12_SearchScreen_ru.png">
+      </FileRef>
+      <FileRef
+         location = "group:10_AlertMessage_dark.png">
+      </FileRef>
+      <FileRef
+         location = "group:11_FavoritesScreen_dark.png">
+      </FileRef>
+      <FileRef
+         location = "group:02_FollowersScreen.png">
+      </FileRef>
+      <FileRef
+         location = "group:01_SearchScreen.png">
+      </FileRef>
+      <FileRef
+         location = "group:05_SafariScreen.png">
+      </FileRef>
+      <FileRef
+         location = "group:09_UserInfoScreen_dark.png">
+      </FileRef>
+      <FileRef
+         location = "group:15_FavoritesScreen_ru.png">
+      </FileRef>
+      <FileRef
+         location = "group:06_FavoritesScreen.png">
+      </FileRef>
+      <FileRef
+         location = "group:03_UserInfoScreen.png">
+      </FileRef>
+      <FileRef
+         location = "group:07_SearchScreen_dark.png">
+      </FileRef>
+      <FileRef
+         location = "group:08_FollowersScreen_dark.png">
+      </FileRef>
+      <FileRef
+         location = "group:04_AlertMessage.png">
+      </FileRef>
+      <FileRef
+         location = "group:13_UserInfoScreen_ru.png">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "self:">
+   </FileRef>
+</Workspace>
