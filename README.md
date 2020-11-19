@@ -1,5 +1,6 @@
 # GitHub Followers
 There is my home project of GitHub followers viewer app. I hope you enjoy it!
+<br>
 Let's see what it's like:
 
 ## 1. Search Screen
