@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PersistenceService {
+protocol Persistencing: class {
     
     func updateWith(favorite: Follower,
                     actionType: PersistenceActionType,

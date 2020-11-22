@@ -1,17 +1,13 @@
 //
-//  NetworkManager.swift
+//  NetworkService.swift
 //  GitHub Followers
 //
-//  Created by Oleg Chebotarev on 13.11.2020.
+//  Created by Oleg Chebotarev on 23.11.2020.
 //
 
 import UIKit
 
-class NetworkManager {
-    
-    // MARK: - Public properties
-    
-    static let shared = NetworkManager()
+class NetworkService: Networking {
     
     // MARK: - Public Methods
     
@@ -126,9 +122,5 @@ class NetworkManager {
     
     private let baseURL = "https://api.github.com/users/"
     private let cache = NSCache<NSString, UIImage>()
-    
-    // MARK: - Private Constructors
-    
-    private init() {}
     
 }

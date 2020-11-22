@@ -11,7 +11,7 @@ class FavoritesListViewController: GFDataLoadingViewController {
     
     // MARK: - Constructors
     
-    init(persistenceService: PersistenceService) {
+    init(persistenceService: Persistencing) {
         self.persistenceService = persistenceService
         
         super.init(nibName: nil, bundle: nil)
@@ -40,7 +40,7 @@ class FavoritesListViewController: GFDataLoadingViewController {
     
     private let tableView = UITableView()
     private var favorites = [Follower]()
-    private var persistenceService: PersistenceService
+    private var persistenceService: Persistencing
     
     // MARK: - Private Methods
     
@@ -101,7 +101,7 @@ extension FavoritesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID) as! FavoriteCell
         let favorite = favorites[indexPath.row]
-        cell.set(favorite: favorite)
+        cell.set(favorite: favorite, networkService: NetworkService())
         return cell
     }
     
@@ -128,7 +128,7 @@ extension FavoritesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = favorites[indexPath.row]
-        let destinationVC = FollowerListViewController(username: favorite.login)
+        let destinationVC = FollowerListViewController(username: favorite.login, networkService: NetworkService())
         
         navigationController?.pushViewController(destinationVC, animated: true)
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDefaultsPersistenceService: PersistenceService {
+class UserDefaultsPersistenceService: Persistencing {
     
     // MARK: - Public Methods
     
@@ -28,7 +28,7 @@ struct UserDefaultsPersistenceService: PersistenceService {
                 case .remove:
                     favorites.removeAll { $0.login == favorite.login }
                 }
-                completion(save(favorites: favorites))
+                completion(self.save(favorites: favorites))
             case .failure(let error):
                 completion(error)
             }

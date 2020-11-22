@@ -11,11 +11,11 @@ class FollowerListViewController: GFDataLoadingViewController {
     
     // MARK: - Constructors
     
-    init(username: String) {
-        super.init(nibName: nil, bundle: nil)
-        
+    init(username: String, networkService: Networking) {
         self.username = username
-        title = username
+        self.networkService = networkService
+        
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +26,8 @@ class FollowerListViewController: GFDataLoadingViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = username
         
         configureVC()
         configureSearchController()
@@ -48,7 +50,7 @@ class FollowerListViewController: GFDataLoadingViewController {
     
     // MARK: - Private Properties
     
-    private var username: String!
+    private var username: String
     private var followers = [Follower]()
     private var filteredFollowers = [Follower]()
     private var page = 1
@@ -58,6 +60,8 @@ class FollowerListViewController: GFDataLoadingViewController {
     
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+    
+    private let networkService: Networking
     
     // MARK: - Private Methods
     
@@ -75,7 +79,7 @@ class FollowerListViewController: GFDataLoadingViewController {
     }
     
     private func updateHeader(with username: String) {
-        NetworkManager.shared.getUserInfo(for: username) { (result) in
+        networkService.getUserInfo(for: username) { (result) in
             switch result {
             case .success(let user):
                 DispatchQueue.main.async { self.title = user.login }
@@ -108,7 +112,7 @@ class FollowerListViewController: GFDataLoadingViewController {
         showLoadingView()
         isLoadingMoreFollowers = true
         
-        NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
+        networkService.getFollowers(for: username, page: page) { [weak self] result in
             guard let self = self else { return }
             self.dismissLoadingView()
             
@@ -130,7 +134,8 @@ class FollowerListViewController: GFDataLoadingViewController {
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
-            cell.set(follower: follower)
+            
+            cell.set(follower: follower, networkService: self.networkService)
             return cell
         })
     }
@@ -165,7 +170,7 @@ class FollowerListViewController: GFDataLoadingViewController {
     }
     
     private func goToUserInfoVC(username: String) {
-        let destinationVC = UserInfoViewController(persistenceService: UserDefaultsPersistenceService())
+        let destinationVC = UserInfoViewController(persistenceService: UserDefaultsPersistenceService(), networkService: networkService)
         destinationVC.username = username
         destinationVC.delegate = self
         let navController = UINavigationController(rootViewController: destinationVC)
