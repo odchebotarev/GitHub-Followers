@@ -20,8 +20,9 @@ class UserInfoViewController: GFDataLoadingViewController {
     
     // MARK: - Constructors
     
-    init(persistenceService: PersistenceService) {
+    init(persistenceService: Persistencing, networkService: Networking) {
         self.persistenceService = persistenceService
+        self.networkService = networkService
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,7 +52,8 @@ class UserInfoViewController: GFDataLoadingViewController {
     private let itemViewTwo = UIView()
     private let dateLabel = GFBodyLabel(textAlignment: .center)
     
-    private let persistenceService: PersistenceService
+    private let persistenceService: Persistencing
+    private let networkService: Networking
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
@@ -63,7 +65,7 @@ class UserInfoViewController: GFDataLoadingViewController {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         navigationItem.rightBarButtonItem = doneButton
         
-        NetworkManager.shared.getUserInfo(for: username) { [weak self] (result) in
+        networkService.getUserInfo(for: username) { [weak self] (result) in
             guard let self = self else { return }
             
             switch result {
@@ -146,7 +148,7 @@ class UserInfoViewController: GFDataLoadingViewController {
     }
     
     private func getUserInfo() {
-        NetworkManager.shared.getUserInfo(for: username) { [weak self] (result) in
+        networkService.getUserInfo(for: username) { [weak self] (result) in
             guard let self = self else { return }
             
             switch result {
@@ -159,7 +161,7 @@ class UserInfoViewController: GFDataLoadingViewController {
     }
     
     private func configureUIElements(with user: User) {
-        self.add(childVC: GFUserInfoHeaderViewController(user: user), to: self.headerView)
+        self.add(childVC: GFUserInfoHeaderViewController(user: user, networkService: networkService), to: self.headerView)
         self.add(childVC: GFRepoItemViewController(user: user, delegate: self), to: self.itemViewOne)
         self.add(childVC: GFFollowerItemViewController(user: user, delegate: self), to: self.itemViewTwo)
         self.dateLabel.text = "\(Texts.gitHubSince.local()) \(user.createdAt.convertToMonthYearFormat())"
@@ -179,7 +181,7 @@ class UserInfoViewController: GFDataLoadingViewController {
     @objc private func addButtonTapped() {
         showLoadingView()
         
-        NetworkManager.shared.getUserInfo(for: username) { [weak self] (result) in
+        networkService.getUserInfo(for: username) { [weak self] (result) in
             guard let self = self else { return }
             self.dismissLoadingView()
             

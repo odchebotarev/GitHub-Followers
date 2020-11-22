@@ -32,22 +32,18 @@ class FavoriteCell: UITableViewCell {
         usernameLabel.text = nil
     }
     
-    func set(favorite: Follower) {
+    func set(favorite: Follower, networkService: Networking) {
         usernameLabel.text = favorite.login
-        NetworkManager.shared.downloadImage(from: favorite.avatarUrl) { [weak self] (image) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                if self.usernameLabel.text == favorite.login {
-                    self.avatarImageView.image = image
-                }
-            }
-        }
+        self.networkService = networkService
+        downloadImage(of: favorite)
     }
     
     // MARK: - Private Properties
     
     private let avatarImageView = GFAvatarImageView(frame: .zero)
     private let usernameLabel = GFTitleLabel(textAlignment: .left, fontSize: 26)
+    
+    private var networkService: Networking?
     
     // MARK: - Private Methods
     
@@ -68,6 +64,17 @@ class FavoriteCell: UITableViewCell {
             usernameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 24),
             usernameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding)
         ])
+    }
+    
+    private func downloadImage(of follower: Follower) {
+        networkService?.downloadImage(from: follower.avatarUrl) { [weak self] (image) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if self.usernameLabel.text == follower.login {
+                    self.avatarImageView.image = image
+                }
+            }
+        }
     }
     
 }

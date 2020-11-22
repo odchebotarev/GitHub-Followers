@@ -32,22 +32,18 @@ class FollowerCell: UICollectionViewCell {
         usernameLabel.text = nil
     }
     
-    func set(follower: Follower) {
+    func set(follower: Follower, networkService: Networking) {
         usernameLabel.text = follower.login
-        NetworkManager.shared.downloadImage(from: follower.avatarUrl) { [weak self] (image) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                if self.usernameLabel.text == follower.login {
-                    self.avatarImageView.image = image
-                }
-            }
-        }
+        self.networkService = networkService
+        downloadImage(of: follower)
     }
     
     // MARK: - Private Properties
     
     private let avatarImageView = GFAvatarImageView(frame: .zero)
     private let usernameLabel = GFTitleLabel(textAlignment: .center, fontSize: 16)
+    
+    private var networkService: Networking?
     
     // MARK: - Private Methods
     
@@ -66,6 +62,17 @@ class FollowerCell: UICollectionViewCell {
             usernameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             usernameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
         ])
+    }
+    
+    private func downloadImage(of follower: Follower) {
+        networkService?.downloadImage(from: follower.avatarUrl) { [weak self] (image) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if self.usernameLabel.text == follower.login {
+                    self.avatarImageView.image = image
+                }
+            }
+        }
     }
     
 }

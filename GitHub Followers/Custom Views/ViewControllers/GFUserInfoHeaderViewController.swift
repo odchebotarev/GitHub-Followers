@@ -11,10 +11,11 @@ class GFUserInfoHeaderViewController: UIViewController {
     
     // MARK: - Constructors
     
-    init(user: User) {
-        super.init(nibName: nil, bundle: nil)
-        
+    init(user: User, networkService: Networking) {
         self.user = user
+        self.networkService = networkService
+        
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -40,12 +41,14 @@ class GFUserInfoHeaderViewController: UIViewController {
     private let locationLabel = GFSecondaryTitleLabel(fontSize: 18)
     private let bioLabel = GFBodyLabel(textAlignment: .left)
     
-    private var user: User!
+    private var user: User
+    
+    private let networkService: Networking
     
     // MARK: - Private Methods
     
     private func configureUIElements() {
-        NetworkManager.shared.downloadImage(from: user.avatarUrl) { (image) in
+        networkService.downloadImage(from: user.avatarUrl) { (image) in
             DispatchQueue.main.async { self.avatarImageView.image = image }
         }
         usernameLabel.text = user.login
