@@ -18,6 +18,18 @@ class UserInfoViewController: GFDataLoadingViewController {
     var username: String!
     weak var delegate: UserinfoViewControllerDelegate!
     
+    // MARK: - Constructors
+    
+    init(persistenceService: PersistenceService) {
+        self.persistenceService = persistenceService
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Public Methods
     
     override func viewDidLoad() {
@@ -38,6 +50,8 @@ class UserInfoViewController: GFDataLoadingViewController {
     private let itemViewOne = UIView()
     private let itemViewTwo = UIView()
     private let dateLabel = GFBodyLabel(textAlignment: .center)
+    
+    private let persistenceService: PersistenceService
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
@@ -63,7 +77,7 @@ class UserInfoViewController: GFDataLoadingViewController {
     
     private func configureLeftBarButtonItem(user: User) {
         let follower = Follower(login: user.login, avatarUrl: user.avatarUrl)
-        PersistenceManager.isFavorite(follower: follower) { [weak self] (result) in
+        persistenceService.isFavorite(follower: follower) { [weak self] (result) in
             guard let self = self else { return }
             
             switch result {
@@ -180,7 +194,7 @@ class UserInfoViewController: GFDataLoadingViewController {
     
     private func addUserToFavorites(user: User) {
         let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
-        PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] (error) in
+        persistenceService.updateWith(favorite: favorite, actionType: .add) { [weak self] (error) in
             guard let self = self else { return }
             if let error = error {
                 self.presentGFAlertOnMainThread(title: Texts.defaultErrorLabel.local(), message: error.localizedDescription)

@@ -165,7 +165,7 @@ class FollowerListViewController: GFDataLoadingViewController {
     }
     
     private func goToUserInfoVC(username: String) {
-        let destinationVC = UserInfoViewController()
+        let destinationVC = UserInfoViewController(persistenceService: UserDefaultsPersistenceService())
         destinationVC.username = username
         destinationVC.delegate = self
         let navController = UINavigationController(rootViewController: destinationVC)

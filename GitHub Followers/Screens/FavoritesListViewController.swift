@@ -8,7 +8,19 @@
 import UIKit
 
 class FavoritesListViewController: GFDataLoadingViewController {
-
+    
+    // MARK: - Constructors
+    
+    init(persistenceService: PersistenceService) {
+        self.persistenceService = persistenceService
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Public Methods
     
     override func viewDidLoad() {
@@ -28,6 +40,7 @@ class FavoritesListViewController: GFDataLoadingViewController {
     
     private let tableView = UITableView()
     private var favorites = [Follower]()
+    private var persistenceService: PersistenceService
     
     // MARK: - Private Methods
     
@@ -50,7 +63,7 @@ class FavoritesListViewController: GFDataLoadingViewController {
     }
     
     private func getFavorites() {
-        PersistenceManager.retrieveFavorites { [weak self] (result) in
+        persistenceService.retrieveFavorites { [weak self] (result) in
             guard let self = self else { return }
             
             switch result {
@@ -95,7 +108,7 @@ extension FavoritesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
 
-        PersistenceManager.updateWith(favorite: favorites[indexPath.row], actionType: .remove) { [weak self] (error) in
+        persistenceService.updateWith(favorite: favorites[indexPath.row], actionType: .remove) { [weak self] (error) in
             guard let self = self else { return }
             if let error = error {
                 self.presentGFAlertOnMainThread(title: Texts.unableToRemoveLabel.local(), message: error.localizedDescription)

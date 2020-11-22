@@ -29,7 +29,7 @@ class GFTabBarController: UITabBarController {
     }
     
     private func createFavoritesListNC() -> UINavigationController {
-        let favoritesListVC = FavoritesListViewController()
+        let favoritesListVC = FavoritesListViewController(persistenceService: UserDefaultsPersistenceService())
         favoritesListVC.title = "Favorites"
         favoritesListVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         
